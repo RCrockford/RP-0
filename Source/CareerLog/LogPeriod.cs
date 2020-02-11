@@ -13,6 +13,12 @@ namespace RP0
         public double EndUT;
 
         [Persistent]
+        public double CurrentFunds;
+
+        [Persistent]
+        public double CurrentSci;
+
+        [Persistent]
         public double ContractRewards;
 
         [Persistent]

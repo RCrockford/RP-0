@@ -61,6 +61,8 @@ namespace RP0
                     curPeriod = new LogPeriod(CurPeriodStart, NextPeriodStart);
                     _periodDict.Add(CurPeriodStart, curPeriod);
 
+                    curPeriod.CurrentFunds = Funding.Instance.Funds;
+                    curPeriod.CurrentSci = ResearchAndDevelopment.Instance.Science;
                     curPeriod.VABUpgrades = GetKCTUpgradeCounts(SpaceCenterFacility.VehicleAssemblyBuilding);
                     curPeriod.SPHUpgrades = GetKCTUpgradeCounts(SpaceCenterFacility.SpaceplaneHangar);
                     curPeriod.RnDUpgrades = GetKCTUpgradeCounts(SpaceCenterFacility.ResearchAndDevelopment);
@@ -239,6 +241,8 @@ namespace RP0
                 p.VABUpgrades.ToString(),
                 p.SPHUpgrades.ToString(),
                 p.RnDUpgrades.ToString(),
+                p.CurrentFunds.ToString(),
+                p.CurrentSci.ToString(),
                 p.ScienceEarned.ToString(),
                 (p.OtherFundsEarned + p.ContractRewards).ToString(),
                 p.LaunchFees.ToString(),
@@ -260,7 +264,7 @@ namespace RP0
                                                .ToArray())
             });
 
-            var columnNames = new[] { "Month", "VAB", "SPH", "RnD", "+Sci", "+Funds", "Launch fees", "Maintenance", "Tooling", "Entry Costs", "Other Fees", "Launches", "Contracts", "Tech", "Facilities" };
+            var columnNames = new[] { "Month", "VAB", "SPH", "RnD", "Current Funds", "Current Sci", "Total sci earned", "+Funds", "Launch fees", "Maintenance", "Tooling", "Entry Costs", "Other Fees", "Launches", "Contracts", "Tech", "Facilities" };
             var csv = CsvWriter.WriteToText(columnNames, rows, ',');
             File.WriteAllText(path, csv);
         }
